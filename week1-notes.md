@@ -13,7 +13,7 @@
 - Applicable to a diverse set of industries, every company can benefit from using the cloud. Ex... McDonalds, Activision, 21st Century FOX
 - Use cases include: Enterprise IT, backup and storage, Big data analytics, Website Hosting, Mobile and Social Apps, Gaming.
 
-## AWS Global Infrastructure
+### AWS Global Infrastructure
 AWS is global, you have:
 - AWS Regions
 - AWS Availability Zones
@@ -26,7 +26,7 @@ AWS is global, you have:
 - A region is a cluster of data centers.
 - Most AWS services are linked and scoped to a specific region. Meaning if we use a service in one region and we try to use in another it will be like a new time using the service.
 
-# Question that may come up in the exam:
+## Question that may come up in the exam:
 Q - How do you choose an AWS Region  
 A - It depends on certain factors such as;
    - Compliance w/ (local) data governance and legal requirements: Sometimes governments want the data to be local to the country you're deploying the app in.
@@ -34,3 +34,15 @@ A - It depends on certain factors such as;
      - For Ex: you deploy your app in America but your users are in Australia, they are very likely to experience latency.
    - Available Services: not every region has the same services and features available. Make sure that the region you are planning to deploy into has the services that you need.
    - Pricing: pricing varies region to region and is transparent in the service pricing page.
+
+## Day 3 Notes
+
+## AWS Availability Zones
+- Availability zones are what a region consists of (usually 3 with a minimum of 3 and a max of 6)  
+For Ex-- AWS Region -> Sydney: (and Sydney region code is) ap-southeast-2 -> Availability Zones: ap-southeast-2a, ap-southeast-2b, ap-southeast-2c.
+- Each availability zone (AZ) is one or more discrete data center(s) with redundant power, networking, and connectivity so that they are isolated in case of disaster. That way if "2a" fails, "2b" will not be affected and you'd be able to fall back on it.
+- Availability Zones are connected with high bandwidth, ultra-low latency networking.
+- All availability zones linked together form the region.
+
+## AWS Points of Presence (Edge Locations)
+- Amazon has 400+ Points of Presence (400+ Edge Locations & 10+ Regional Caches) in 90+ cities across 40+ countries. This is helpful when we deliver content to the end user because we have a high chance of accomplishing lower latency.
