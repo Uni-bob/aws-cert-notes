@@ -14,3 +14,4 @@
 - Users or groups can be assigned JSON documents called **policies**.
 - These policies define the permissions of users for any given service within AWS.
 - For the sake of security and to avoid unnecessary risk in AWS, apply the **principle of least privilege**: Don’t give more permissions than a user needs — kind of like “need to know” in the military.
+- One way to manage permissions for users is to create a group and assign that group a permission then by adding a given user to that group, the user inherits any permissions assigned to that group.
