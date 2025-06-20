@@ -62,3 +62,34 @@
     }
   ]
 }
+```
+
+## IAM Security
+
+- To protect users and groups we have 2 defense mechanisms:
+    - **Password Policy**: strong passwords = higher security for account.
+    - In AWS you can set up a password policy and define parameters for the password such as:
+        - Set a minimum password length
+        - Require specific character types:
+            - uppercase letters
+            - lowercase letters
+            - numbers
+            - non-alphanumeric characters
+        - User being allowed to change their own passwords
+        - Require users to change their password after some time (password expiration)  
+        **Example:** "Every 90 days users must change their passwords".
+        - Prevent password re-use
+    - **Multi-Factor Authentication - MFA**
+        - Because of the power one has on a root account or a user with admin privileges, we want to take the extra security step and use MFA.
+        - He states that you absolutely, at least, want to protect your Root Accounts & hopefully your IAM users.
+        - This is achieved through the use of an MFA device. MFA = a password you know + security device you own.
+        - **Main Benefit of MFA**: if a user's pass is stolen or hacked, the system will not be compromised because the hacker will also need the physical device that the given user owns and has their MFA token on.
+        - AWS MFA device options (Exam Important):
+            - Virtual MFA device, such as Google Authenticator, which is what I'm used to.
+                - Support for multiple tokens on a single device.
+            - Universal 2nd Factor (U2F) Security Key
+                - This is a physical device.
+                - For ex: YubiKey by Yubico. Looks like a flash drive.
+                - Support for multiple root and IAM users using a single security key so you don't need as many keys as users. (Because that could get hectic real fast).
+            - Hardware Key Fob MFA Device
+            - Hardware Key Fob MFA Device for AWS GovCloud (US). Special key fob.
