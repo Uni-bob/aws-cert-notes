@@ -45,3 +45,16 @@ You have 3 options to access AWS:
   - Internet of Things (IoT) SDKs (Embedded C, Arduino) in case you're using thermal sensors or backlogs
 - **What can you build with AWS SDK?**  
   Prime example: the AWS CLI, which was built with the AWS SDK for Python (named **Boto**).
+
+(Day 9)
+
+- Did hands-on with AWS security key generation
+- Downloaded and configured AWS CLI
+
+(Day 10)
+## AWS CloudShell
+- Just like a terminal, but in the cloud of AWS that is free to use.
+- When issuing a command in CloudShell or terminal, and you want it to consider all the info across all your regions, you must specify this in the command using "--region".
+**Ex**: `aws iam list-users --region`
+- You have a full repository within CloudShell. You can create files within it, then "ls" them for example.
+- Useful things to note: You can configure your CloudShell as well as download and upload files to it. Access through the "Actions" drop-down menu.
