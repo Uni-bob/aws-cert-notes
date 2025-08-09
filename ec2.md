@@ -44,3 +44,46 @@
 
 - When you stop an instance and later turn it on, it’s possible that Amazon may change the public IP address for your instance.
 - The private IP will always stay the same.
+
+(Day 14) Notes
+
+## EC2 Instance Types
+
+- There are different EC2 instance types for different use cases.
+- Each EC2 instance type has its own group of families. ex: General Purpose --> m8g, m8g.large, m8g.xlarge
+- AWS naming convention for EC2 instance types:
+  - m5.2xlarge
+    - m: instance class
+    - 5: generation of the instance (AWS improves them over time. ex: next would be 6)
+    - 2xlarge: size within the instance class (it starts with small and then so on)
+      - The larger the size the more CPU power, RAM, storage etc.
+(For exam perspective what do you need to know)
+
+**General Purpose** - Great for a diversity of workloads such as web servers or code repositories
+- Good balance between: compute, memory, and networking
+- In this course we use t2.micro which is a General Purpose EC2 instance
+
+**Compute Optimized** - Great for compute-intensive tasks that require high performance processors. EX:
+  - Batch processing workloads
+  - Media Transcoding
+  - High performance web server
+  - High performance computing (HPC)
+  - Scientific modeling & machine learning
+  - Dedicated gaming servers
+
+**Memory Optimized**
+- Fast performance for workloads that process large data sets in memory
+- Use case:
+  - High performance, relational/non-relational databases
+  - Distributed web scale cache stores
+  - In-memory databases optimized for BI (business intelligence)
+  - Applications performing real-time processing of big unstructured data
+
+**Storage Optimized**
+- Great for storage-intensive tasks that require high, sequential read and write access to large data sets on local storage
+- Use cases:
+  - High frequency online transaction processing (OLTP) systems
+  - Relational & NoSQL databases
+  - Cache for in-memory databases (for example, Redis)
+  - Data warehousing applications
+  - Distributed file systems
