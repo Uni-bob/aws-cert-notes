@@ -87,3 +87,43 @@
   - Cache for in-memory databases (for example, Redis)
   - Data warehousing applications
   - Distributed file systems
+
+(Day 15 Notes)
+
+## Intro to Security Groups
+- Security Groups are fundamental to network security on AWS  
+- They control how traffic is allowed into or out of our EC2 Instance  
+- Sec Groups only contain 'allow' rules (JSON)  
+- Sec Groups rules can reference by IP (where traffic is coming to or from) or by another Sec Group (Sec Groups can reference each other)  
+
+### Deeper Dive
+- Sec Groups are acting as a "firewall" on EC2 instance  
+- They regulate:  
+  - Access to ports  
+  - Oversee Auth IP ranges – IPv4 and IPv6  
+  - Control of inbound network (from other to the instance)  
+  - Control of outbound network (from the instance to other)  
+
+## Security Groups - Good to Know
+- Can be attached to multiple instances (as well as instances can contain multiple Sec Groups)  
+- Sec Groups are locked down to a region / VPC combination (if in another region you'd have to recreate the security group)  
+- Sec Groups live outside of our EC2 – if traffic is blocked the EC2 instance won't even see it (in other words the unwanted traffic never touches our EC2)  
+- Recommends to maintain one separate Sec Group for SSH access  
+- If your app is not accessible (timeout), then it is a Sec Group issue  
+- If app gives "connection refused" error, then it is an app error or it has not been launched (in this case the Sec Group did its job and traffic went through but the app was errored or didn’t launch or something of the sort)  
+- All inbound traffic is blocked by default  
+- All outbound traffic is authorized by default  
+
+### Exam Important - Classic Ports to Know
+- **22** = SSH (Secure Shell) – log into a Linux instance  
+- **21** = FTP (File Transfer Protocol) – upload files into a file share  
+- **22** = SFTP (Secure File Transfer Protocol) – upload files using SSH  
+- **80** = HTTP – access unsecured websites  
+- **443** = HTTPS – access secured websites  
+- **3389** = RDP (Remote Desktop Protocol) – log into a Windows instance  
+
+## SSH Overview
+- SSH is a command-line interface utility that can be used on Mac, Linux, and Windows >= 10. You can use PuTTY (uses SSH protocol) for any version of Windows.  
+- EC2 Instance Connect – uses web browser instead of terminal to connect to EC2 instance. This method is available for all of the platforms above (at the moment only works for Amazon Linux 2)  
+- SSH is what the majority have trouble with  
+- When things don’t work out, rewatch lecture  
