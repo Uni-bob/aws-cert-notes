@@ -88,42 +88,76 @@
   - Data warehousing applications
   - Distributed file systems
 
-(Day 15 Notes)
+## Day 15 Notes
 
-## Intro to Security Groups
-- Security Groups are fundamental to network security on AWS  
-- They control how traffic is allowed into or out of our EC2 Instance  
-- Sec Groups only contain 'allow' rules (JSON)  
-- Sec Groups rules can reference by IP (where traffic is coming to or from) or by another Sec Group (Sec Groups can reference each other)  
+### Intro to Security Groups
+- Security Groups are fundamental to network security on AWS.
+- They control how traffic is allowed into or out of our EC2 Instance.
+- Sec Groups only contain 'allow' rules (JSON).
+- Sec group rules can reference by IP (where traffic is coming to or from) or by another Sec Group (Sec groups can reference each other).
 
-### Deeper Dive
-- Sec Groups are acting as a "firewall" on EC2 instance  
-- They regulate:  
-  - Access to ports  
-  - Oversee Auth IP ranges – IPv4 and IPv6  
-  - Control of inbound network (from other to the instance)  
-  - Control of outbound network (from the instance to other)  
+#### Deeper Dive
+- Sec Groups are acting as a "firewall" on an EC2 instance.
+- They regulate:
+  - Access to ports
+  - Oversee authorized IP ranges - IPv4 and IPv6
+  - Control of inbound network (from others to the instance)
+  - Control of outbound network (from the instance to others)
 
-## Security Groups - Good to Know
-- Can be attached to multiple instances (as well as instances can contain multiple Sec Groups)  
-- Sec Groups are locked down to a region / VPC combination (if in another region you'd have to recreate the security group)  
-- Sec Groups live outside of our EC2 – if traffic is blocked the EC2 instance won't even see it (in other words the unwanted traffic never touches our EC2)  
-- Recommends to maintain one separate Sec Group for SSH access  
-- If your app is not accessible (timeout), then it is a Sec Group issue  
-- If app gives "connection refused" error, then it is an app error or it has not been launched (in this case the Sec Group did its job and traffic went through but the app was errored or didn’t launch or something of the sort)  
-- All inbound traffic is blocked by default  
-- All outbound traffic is authorized by default  
+### Security Groups - Good to Know
+- Can be attached to multiple instances (as well as instances can contain multiple Sec Groups).
+- Sec groups are locked down to a region/VPC combination (if in another region you'd have to recreate the security group).
+- Sec groups live outside of our EC2 — if traffic is blocked the EC2 instance won't even see it (in other words the unwanted traffic never touches our EC2).
+- Recommended to maintain one separate Sec Group for SSH access.
+- If your app is not accessible (timeout), then it is a Sec Group issue.
+- If app gives "connection refused" error, then it is an app error or it has not been launched (in this case the Sec Group did its job and traffic went through, but the app was errored or didn’t launch or something of the sort).
+- All inbound traffic is blocked by default.
+- All outbound traffic is authorized by default.
 
-### Exam Important - Classic Ports to Know
-- **22** = SSH (Secure Shell) – log into a Linux instance  
-- **21** = FTP (File Transfer Protocol) – upload files into a file share  
-- **22** = SFTP (Secure File Transfer Protocol) – upload files using SSH  
-- **80** = HTTP – access unsecured websites  
-- **443** = HTTPS – access secured websites  
-- **3389** = RDP (Remote Desktop Protocol) – log into a Windows instance  
+#### Exam Important
+**Classic Ports to Know**
+- 22 = SSH (Secure Shell) - log into a Linux instance
+- 21 = FTP (File Transfer Protocol) - upload files into a file share
+- 22 = SFTP (Secure File Transfer Protocol) - upload files using SSH
+- 80 = HTTP - access unsecured websites
+- 443 = HTTPS - access secured websites
+- 3389 = RDP (Remote Desktop Protocol) - log into a Windows instance
 
-## SSH Overview
-- SSH is a command-line interface utility that can be used on Mac, Linux, and Windows >= 10. You can use PuTTY (uses SSH protocol) for any version of Windows.  
-- EC2 Instance Connect – uses web browser instead of terminal to connect to EC2 instance. This method is available for all of the platforms above (at the moment only works for Amazon Linux 2)  
-- SSH is what the majority have trouble with  
-- When things don’t work out, rewatch lecture  
+### SSH Overview
+- SSH is a command-line interface utility that can be used on Mac, Linux, and Windows >= 10. You can use PuTTY (uses SSH protocol) for any version of Windows.
+- EC2 Instance Connect - uses web browser instead of terminal to connect to EC2 instance. This method is available for all of the platforms above (at the moment only works for Amazon Linux 2).
+- SSH is what the majority have trouble with.
+- When things don’t work out, rewatch lecture.
+
+---
+
+## Day 16 Notes
+
+### How to SSH into Your EC2 Instance
+- SSH is one of the most important functions. It allows you to control a remote machine, all by using the command line.
+- Never run `aws configure` on EC2 Instance Connect — you risk someone retrieving the values of your login, exposing your public and private key to anyone else who may have access to that instance.
+- Instead, add an IAM role to the instance and it can enable access to commands on your behalf without you having to risk someone else knowing your credentials.
+
+---
+
+## EC2 Instance Purchasing Options
+- If you have different kinds of workloads you can optimize discounts and pricing by specifying what you need from AWS.
+- **On-demand Instances** - short workload, predictable pricing, pay by second.
+- **Reserved (1 & 3 years term)**  
+  - Reserved Instance - long workloads  
+  - Convertible Reserved Instances - long workloads with flexible instances (if you want to change instance type over time)
+- **Savings Plans (1 & 3 years term)** - Instead of committing to a certain instance type, you commit to an amount of usage in dollars; meant for long workloads as well.
+- **Spot Instances** - short workloads, cheap, can lose instances (less reliable).
+- **Dedicated Hosts** - book an entire physical server, control instance placement.
+- **Dedicated Instances** - no other customers will share your hardware.
+- **Capacity Reservations** - reserve capacity in a specific AZ for any duration.
+
+---
+
+### EC2 On Demand
+- Pay for what you use:
+  - Linux or Windows - billing per second, after the first minute
+  - All other operating systems - billing per hour
+- Has the highest cost but no upfront payment.
+- No long-term commitment.
+- Recommended for short-term & uninterrupted workloads, where you can't predict how the app will behave.
