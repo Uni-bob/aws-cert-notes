@@ -161,3 +161,67 @@
 - Has the highest cost but no upfront payment.
 - No long-term commitment.
 - Recommended for short-term & uninterrupted workloads, where you can't predict how the app will behave.
+
+(Day 17 Notes)
+
+## EC2 Reserved Instances
+- Up to 72% discount compared to On-Demand.  
+- You reserve specific instance attributes (Instance Type, Region, Tenancy, OS).  
+- Specify a reservation period to unlock an even heavier discount (1 to 3 years). The longer, the better the discount.  
+- Payment options: No upfront (+), Partial Upfront (++), All Upfront (+++).  
+- Reserved Instance Scope: Regional or Zonal (reserve capacity in an AZ).  
+- You’d use Reserved Instances for steady-state, low-volatility apps (think database).  
+- You can buy and sell your Reserved Instances in a marketplace if no longer needed.  
+
+### Convertible Reserved Instance
+- Allows you to change the instance type, instance family, OS, scope, and tenancy.  
+- Because you have more flexibility, you get a slightly weaker discount (e.g., ~66% compared to 72%).  
+
+---
+
+## EC2 Savings Plans
+- Get a discount based on long-term usage.  
+- Commit to a certain type of usage (e.g., $10/hr for 1 or 3 years).  
+- Any usage beyond the EC2 Savings Plan is billed at the On-Demand price.  
+- Locked to a specific instance family & AWS region (e.g., M5 in us-east-1).  
+- Flexible across:  
+  - Instance Size (e.g., m5.xlarge or m5.2xlarge)  
+  - OS (Linux or Windows)  
+  - Tenancy (Host, Dedicated, Default)  
+
+---
+
+## EC2 Spot Instances
+- Tend to have the heaviest discount.  
+- You can lose your instance at any time if your max price is less than the current spot price.  
+- Most cost-efficient instances in AWS.  
+- Useful for workloads that are resilient to failure:  
+  - Batch jobs  
+  - Data analysis  
+  - Image processing  
+  - Any distributed workloads  
+  - Workloads with a flexible start and end time  
+- **Not suitable for critical jobs or databases** (Exam relevant).  
+
+---
+
+## EC2 Dedicated Hosts
+- A physical server with EC2 instance capacity fully dedicated to your use.  
+- Allows you to address **compliance requirements** and use your existing server-bound software licenses (billing per-socket, per-core, per-VM software licenses).  
+- Purchasing options:  
+  - On-Demand – pay per second for active Dedicated Host.  
+  - Reserved – 1 or 3 years (No upfront, Partial Upfront, All Upfront).  
+- Most expensive option.  
+- Useful for software with complicated licensing models (BYOL – Bring Your Own License).  
+- Ideal for companies with strong regulatory or compliance needs.  
+
+---
+
+## Dedicated Instances
+- Instances run on hardware that’s dedicated to you.  
+- Different from a physical server but may share hardware with other instances on the same account.  
+- No control over instance placement (can move hardware after stop/start).  
+
+**Remember (Exam):**  
+- **Dedicated Instances** → Your own instance on your own hardware.  
+- **Dedicated Host** → Access to the physical server itself, plus visibility into lower-level hardware details (per-socket, per-core, etc.).  
