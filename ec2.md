@@ -225,3 +225,81 @@
 **Remember (Exam):**  
 - **Dedicated Instances** → Your own instance on your own hardware.  
 - **Dedicated Host** → Access to the physical server itself, plus visibility into lower-level hardware details (per-socket, per-core, etc.).  
+
+*Day 18 Notes*
+
+## EC2 Capacity Reservations
+- Reserve On-Demand instance capacity in a specific AZ for any duration
+- You always have access to EC2 capacity when you need it
+- No time commitment (create/cancel anytime), no billing discounts (the only purpose is to reserve capacity)
+- If you want to get billing discounts, you need to combine with Regional Reserved Instances & Savings Plans to benefit from billing discounts
+- Charged the On-Demand rate whether you run instances or not
+- Suitable for short-term, uninterrupted workloads that need to be in a specific AZ and you want assurance that instances will be available when you go to create them
+
+
+
+## Deciding Which Purchasing Option Is the Right Fit
+*(Resort metaphor)*
+
+- **On-Demand**: Coming and staying in a resort whenever we like, we pay the full price  
+- **Reserved**: Like planning ahead; if we plan to stay for a long time, we may get a good discount  
+- **Savings Plans**: Saying, “Hey I know in my resort I’m going to spend a specific amount over several months; therefore, I may want to change room type over time.” Pay a certain amount per hour for a certain period and stay in any room type (king, suite, sea view)  
+- **Spot Instances**: The hotel allows people to bid for the empty rooms and the highest bidder keeps the rooms. You can get kicked out at any time if the spot price becomes higher than your max price  
+- **Dedicated Host**: “Hey, I want to book the entire building of the resort.”  
+- **Capacity Reservation**: “I’m going to book a room; I’m not sure if I’ll even stay in it, but if I do decide to, I’ll know one will be available to me.” You book a room for a period with full price even if you don’t stay in it  
+
+
+
+## EC2 Spot Instances Deep Dive
+
+### EC2 Spot Instance Request
+- Can get a discount of up to 90% compared to On-Demand
+- Define Max Spot Price & get the instance while Current Spot Price < Max == True
+  - The hourly spot price varies based on offer & capacity  
+  (Day 19)
+- If the current spot price > your max price you can choose to stop or terminate your instance with a 2 min grace period  
+
+**Other Strategy: Spot Block**
+- “Block” spot instance during a specified time frame (1 to 6 hrs) without interruptions  
+- In rare situations, the instance may still be reclaimed  
+
+**Use Cases:**
+- Batch jobs  
+- Data analysis  
+- Image processing  
+- Any distributed workloads  
+- Workloads with flexible start and end times  
+
+**Not suitable for:** Critical jobs or databases  
+
+
+
+### How to Terminate Spot Instances
+*(These could come up in the exam)*
+
+- Refer to diagram on slides  
+- You can only cancel Spot Instance requests that are **Open, Active, or Disabled**  
+- Canceling a spot request does not terminate instances, therefore it is still your responsibility to terminate instances  
+- If you want to terminate a spot instance:
+  1. Cancel the spot request first  
+  2. Then terminate the spot instance(s)  
+- If you don’t do this, when you cancel the spot instance your request will automatically create another spot instance to replace the one you are terminating  
+
+
+
+## Spot Fleets
+- The ultimate way to save money  
+- Spot Fleets = set of spot instances + (optional) On-Demand instances  
+- The Spot Fleet will try to meet the target capacity with price constraints  
+  - Launches from possible launch pools (instance type, OS, AZ)  
+  - You can define multiple launch pools (multiple instance types, multiple everything)  
+  - Fleet chooses the best and most appropriate launch pool for you  
+  - Spot Fleet stops launching instances when reaching capacity or max cost you have set  
+
+**Allocation Strategies:**
+- **Lowest Price**: From the pool with the lowest price (cost optimization, short workloads)  
+- **Diversified**: Distributed across all pools defined (great for availability, long workloads)  
+- **CapacityOptimized**: Pool with the optimal capacity for the number of instances  
+- **PriceCapacityOptimized (recommended)**: Pools with highest capacity available, then select the pool with the lowest price (best choice for most workloads)  
+
+<u>Spot Fleets allow us to automatically request Spot Instances with the lowest price.</u>
