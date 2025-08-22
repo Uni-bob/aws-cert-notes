@@ -354,3 +354,48 @@
 
 If your machine is stopped and then started,  
 the public IP can change.
+(Day 22)
+- When it comes to Elastic IPs IPv4 address AWS charges when in use and when in idle. Therefore cancel immediately if you do not want to be charged.
+
+## EC2 Placement Groups
+- You want to use them when you want control over how your EC2 Instances are going to be placed within AWS infrastructure.
+- This strategy can be defined using placement groups
+- When you create a placement group, you specify one of the following strategies for the group:
+  - Cluster — clusters instances into a low latency group in a single AZ
+  - Spread — spreads instances across underlying hardware (max 7 instances per group per AZ) - critical applications
+  - Partition — spreads instances across many different partitions (which rely on different sets of racks) within an AZ. Scales to 100s of EC2 instances per group (apps such as: Hadoop, Cassandra, Kafka)
+
+### Cluster
+- See slide for diagrams
+- Pros: Great network (10Gbps bandwidth between instances with Enhanced Networking enabled - recommended)
+- Cons: If the AZ fails, all instances fail at the same time
+- Use case:
+  - Big Data job that needs to complete fast
+  - Apps that need extremely low latency & high network throughput
+
+### Spread
+(See slide for diagram)
+- In spread the goal is to minimize failure risk
+- Each EC2 instance is on different hardware
+- Pros:
+  - Can span across AZs
+  - Reduced risk of simultaneous failure
+  - EC2 instances are on different physical hardware
+- Cons:
+  - Limited to 7 instances per AZ per placement group
+- Use case:
+  - App that needs to maximize high availability
+  - Critical apps where each instance must be isolated from failure from each other
+
+### Partition
+- See slide for diagram
+- Each partition represents a rack in AWS so you are effectively making sure that your instances are spread throughout many hardware racks. Therefore they are safe from a rack failure
+- Up to 7 partitions per AZ
+- These partitions can span across multiple AZs in the same region
+- Up to 100s of EC2 instances with this setup
+- The instances in a partition do not share racks with the instances in other partitions. Therefore each partition is isolated from failure
+- A partition failure can affect many EC2s but won't affect other partitions
+- EC2 instances get access to the partition information as metadata. That's how you will be able to tell which of the instances is on what rack
+- Use case:
+  - When you have an app that can be partition-aware to distribute data and your servers across partitions
+  - Apps like: HDFS, HBase, Cassandra, Kafka (usually big data apps)
