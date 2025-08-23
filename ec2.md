@@ -399,3 +399,23 @@ the public IP can change.
 - Use case:
   - When you have an app that can be partition-aware to distribute data and your servers across partitions
   - Apps like: HDFS, HBase, Cassandra, Kafka (usually big data apps)
+
+(Day 23)
+
+## Elastic Network Interfaces (ENI) Overview
+- Logical component in a VPC that represents a *Virtual network card*
+- They are what give EC2 instances access to the network
+- Also used outside of EC2 instances as well
+- The ENI can have the following attributes:
+  - Primary private IPv4, one or more secondary IPv4
+  - One Elastic IP (IPv4) per private IPv4
+  - One public IPv4
+  - One or more security groups
+  - A MAC address
+
+- You can create ENIs independently & attach them on the fly (move them) on EC2 Instances for failover
+- Bound to a specific availability zone
+
+### ENI Hands-On
+- Since we have control of our ENI, we can move it over to one of our other instances. Let’s say two of our EC2 instances are running the same app and we want to access them using the private IPv4 — then we can move the ENI over. The reason for doing so is that we can do a very quick and easy network failover between the two instances by moving said ENI.
+- The ENI you created will still be there after termination of instances it was attached to. You can see how this gives you some more control over how you want your network interfaces to be and to run on your EC2 instances.
